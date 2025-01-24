@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 
+
 const permissionSchema = new mongoose.Schema({
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    permission_name :{
+        type: String,
         required: true
     },
-    permission: [{
-        permission_name : String, 
-        permission_value : [Number] // 0 -> Create , 1 -> Reade , 2 -> Edit/ Update , 3 -> Delete
-    }],
-    created_at: {
-        type: Date,
-        default: Date.now
+    is_default: {
+        type: Number,
+        default: 0 // 0 -> not Default , 1 -> Default
     }
-}, {
+},{
     timestamps: true
 });
 module.exports = mongoose.model('Permission', permissionSchema);

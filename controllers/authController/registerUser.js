@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
         res.status(201).json({ user })
     }
     catch (err) {
-        res.status(400).json({ err: err.message, success: false })
+        res.status(400).json({ err: err.message })
     }
 }
 module.exports = registerUser;
