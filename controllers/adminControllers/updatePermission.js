@@ -14,7 +14,9 @@ const updatePermission = async (req, res) => {
         }
         const iaNameExist = await Permission.findOne({
             _id: { $ne: id },
-            permission_name
+            permission_name :{
+                $regex: new RegExp(permission_name, "i"),
+            }
         });
         if (iaNameExist) {
             return res.status(400).json({ message: "Permission name already exists" })

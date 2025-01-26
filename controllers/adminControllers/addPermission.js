@@ -8,7 +8,11 @@ const addPermission = async (req, res) => {
             return res.status(400).json({ errors: error.array() });
         }
         const { permission_name } = req.body
-        const existPermission = await Permission.findOne({ permission_name })
+        const existPermission = await Permission.findOne({
+            permission_name: {
+                $regex: new RegExp(permission_name, 'i')
+            }
+        })
         if (existPermission) {
             return res.status(400).json({ message: "Permission already exist" })
         }
