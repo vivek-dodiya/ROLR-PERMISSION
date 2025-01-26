@@ -18,11 +18,15 @@ app.use('/auth',authRoute);
 const adminRoute = require('./routes/adminRoutes/adminRoute');
 app.use('/admin',adminRoute);
 
-//  Common Routes
+// ========== Common Routes ==========
 
 //  CategoryRoutes
 const categoryRoute = require('./routes/commonRoutes/categoryRoutes');
-app.use('/common/category',categoryRoute)
+app.use('/common/category',categoryRoute);
+
+//  PostRoutes
+const postRoute = require('./routes/commonRoutes/postRoutes');
+app.use('/common/post', postRoute);
 
 // port
 app.listen(port, () => {
