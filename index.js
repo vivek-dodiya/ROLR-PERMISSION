@@ -32,6 +32,10 @@ app.use('/common/post', postRoute);
 const userRoute = require('./routes/commonRoutes/userRoutes');
 app.use('/common/user',userRoute)
 
+//  likeRoutes
+const likeUnlikeRoute = require('./routes/commonRoutes/likeAndUnlikeRoutes');
+app.use('/common/like',likeUnlikeRoute);
+
 // port
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
