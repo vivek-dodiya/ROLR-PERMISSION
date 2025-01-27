@@ -10,3 +10,10 @@ exports.createUserValidator = [
         }
     ).withMessage('Please enter a valid email'),
 ]
+exports.updateUserValidator = [
+    check('id').not().isEmpty().withMessage('id is required'),
+    check('name').not().isEmpty().withMessage('Name is required'),
+]
+exports.deleteUserValidator = [
+    check('id').not().isEmpty().withMessage('id is required')
+]
