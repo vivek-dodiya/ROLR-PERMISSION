@@ -1,12 +1,18 @@
 const express = require('express');
-const addCategory = require('../../controllers/commonControllers/categoryControllers/addCategory');
-const { categoryAddValidator, categoryDeleteValidator ,categoryUpdateValidator } = require('../../helpers/categoryValidator');
+const categoryRoute = express.Router();
+
+//=============== jwt verification ==============
 const verifyToken = require('../../middlewares/authMiddleware');
+
+
+//=============== Category Validator ===============
+const { categoryAddValidator, categoryDeleteValidator ,categoryUpdateValidator } = require('../../helpers/categoryValidator');
+const addCategory = require('../../controllers/commonControllers/categoryControllers/addCategory');
 const getCategory = require('../../controllers/commonControllers/categoryControllers/getCategory');
 const deleteCategory = require('../../controllers/commonControllers/categoryControllers/deleteCategory');
 const updateCategory = require('../../controllers/commonControllers/categoryControllers/updateCategory');
-const categoryRoute = express.Router();
 
+//=============== Category API ===============
 //ApiPath :-    /common/category/add-category
 categoryRoute.post('/add-category', verifyToken, categoryAddValidator, addCategory);
 

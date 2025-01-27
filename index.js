@@ -28,6 +28,10 @@ app.use('/common/category',categoryRoute);
 const postRoute = require('./routes/commonRoutes/postRoutes');
 app.use('/common/post', postRoute);
 
+//  UserRoutes 
+const userRoute = require('./routes/commonRoutes/userRoutes');
+app.use('/common/user',userRoute)
+
 // port
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
