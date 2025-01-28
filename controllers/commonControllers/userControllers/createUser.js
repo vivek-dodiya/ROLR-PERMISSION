@@ -1,5 +1,8 @@
 const { validationResult } = require('express-validator');
 const User = require('../../../models/userModel');
+const Permission = require('../../../models/permissionModel');
+const UserPermission = require('../../../models/userPermissionModel');
+
 const bcrypt = require('bcrypt');
 const randomString = require('randomstring');
 const sendMail = require('../../../helpers/sendMail')
@@ -33,6 +36,28 @@ const createUser = async (req, res) => {
         }
 
         const user = await User.create(userObj);
+        // Add Permission To User if Comming in Request
+        if (req.body.permission != undefined && req.body.permission.length > 0) {
+            const addPermission = req.body.permission;
+            const permissionsArray = [];
+
+            await Promise.all(addPermission.map(async (permission) => {
+                const permissionData = await Permission.findOne({
+                    _id: permission.id
+                });
+                if (!permissionData) {
+                    return res.status(400).json({ message: "Permission Not Found" })
+                }
+                permissionsArray.push({
+                    permission_name: permissionData.permission_name,
+                    permission_value: permission.value
+                })
+            }));
+            await UserPermission.create({
+                user_id: user._id,
+                permission: permissionsArray
+            })
+        }
 
         console.log(password);
         //  Content For Mail
