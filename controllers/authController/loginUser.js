@@ -18,12 +18,55 @@ const loginUser = async (req, res) => {
         if (!isValidPassword) {
             return res.status(401).json({ message: 'Email & Password Incorrect' });
         }
-        const token = generateToken(user._id)
+        const token = generateToken(user._id);
+
+        // get user Data With All Permissions
+        const result = await User.aggregate([
+            {
+                $match: { email: user.email }
+            },
+            {
+                $lookup: {
+                    from: 'userpermissions',
+                    localField: '_id',
+                    foreignField: 'user_id',
+                    as: 'permissions'
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    email: 1,
+                    role: 1,
+                    permissions: {
+                        $cond: {
+                            if: { $isArray: "$permissions" },
+                            then: { $arrayElemAt: ["$permissions", 0] },
+                            else: null
+                        }
+                    }
+                    // password:0,
+                    // __v:0,
+                    // createdAt:0,
+                    // updatedAt:0
+                }
+            },
+            {
+                $addFields: {
+                    permissions:{
+                        $mergeObjects: ["$permissions", {}],
+                    }
+                }
+            }
+        ])
+
         res.status(200).json({
             message: 'Login Successfully...',
             token,
             tokenType: "Bearer",
-            user
+            user,
+            result: result[0]
         });
     }
     catch (err) {
