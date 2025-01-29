@@ -19,6 +19,9 @@ const { roleAddValidator } = require('../../helpers/roleValidator');
 const addRole = require('../../controllers/adminControllers/addRole');
 const getRole = require('../../controllers/adminControllers/getRole');
 
+// =================== Get All Routes Validator & Controllers ===================
+const getAllallRoutes = require('../../controllers/adminControllers/getAllRoute');
+
 const adminRoute = express.Router();
 
 // =================== Permission API ===================
@@ -41,5 +44,8 @@ adminRoute.post('/add-role', verifyToken, onlyAdminAccess, roleAddValidator, add
 
 // ApiPath :-  /admin/get-role
 adminRoute.get('/get-role', verifyToken, onlyAdminAccess, getRole)
+
+// =================== AllRoute API ===================
+adminRoute.get('/all-routes', verifyToken, onlyAdminAccess, getAllallRoutes)
 
 module.exports = adminRoute
