@@ -9,7 +9,7 @@ const getRouterPermission = async (req, res) => {
         const { router_endpoint } = req.body;
         const routerPermission = await RouterPermission.find({
             router_endpoint: router_endpoint
-        });
+        }).populate('permission_id');
         if (!routerPermission) {
             return res.status(404).json({ message: 'Router Permission Not Found' });
         }

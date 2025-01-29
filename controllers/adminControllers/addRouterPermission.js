@@ -7,10 +7,10 @@ const addRouterPermission = async (req, res) => {
         if (!error.isEmpty()) {
             return res.status(400).json({ error: error.array() });
         }
-        const { router_endpoint, role, permission } = req.body;
+        const { router_endpoint, role, permission_id, permission } = req.body;
         const routerPermission = await RouterPermission.findOneAndUpdate(
             { router_endpoint, role },
-            { $set: { router_endpoint, role, permission } },
+            { $set: { router_endpoint, role, permission_id,permission } },
             { upsert: true, new: true, setDefaultsOnInsert: true }
         );
         res.status(200).json({
