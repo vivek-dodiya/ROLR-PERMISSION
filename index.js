@@ -36,6 +36,12 @@ app.use('/common/user',userRoute)
 const likeUnlikeRoute = require('./routes/commonRoutes/likeAndUnlikeRoutes');
 app.use('/common/like',likeUnlikeRoute);
 
+// ============== All Routes API ==============
+const verifyToken = require('./middlewares/authMiddleware');
+const onlyAdminAccess = require('./middlewares/adminMiddlewares/onlyAdminAccess');
+const getAllallRoutes = require('./controllers/adminControllers/getAllRoute')
+app.get('/admin/all-routes', verifyToken, onlyAdminAccess, getAllallRoutes)
+
 // port
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

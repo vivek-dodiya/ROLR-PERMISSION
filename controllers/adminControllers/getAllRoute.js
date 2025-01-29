@@ -9,17 +9,14 @@ const getAllallRoutes = async (req, res) => {
             if (data.name === 'router' && data.handle.stack) {
                 data.handle.stack.forEach(handler => {
                     routes.push({
-                        path : handler.route.path,
-                        methods : handler.route.methods
+                        path: handler.route.path,
+                        methods: handler.route.methods
                     });
-                    // console.log("path :-", handler.route.path)
-                    // console.log("method :-", handler.route.methods)
                 })
             }
         });
         res.status(200).json({
             message: "Roles Fatched Sucesssfully...",
-            // stack,
             routes
         });
     } catch (err) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const adminRoute = express();
 
 
 //=============== jwt verification ==============
@@ -19,10 +20,11 @@ const { roleAddValidator } = require('../../helpers/roleValidator');
 const addRole = require('../../controllers/adminControllers/addRole');
 const getRole = require('../../controllers/adminControllers/getRole');
 
-// =================== Get All Routes Validator & Controllers ===================
+// =================== All Routes Validator & Controllers ===================
+const { addAllRouterPermissionValidator } = require('../../helpers/addAllRouterPermissionValidator');
 const getAllallRoutes = require('../../controllers/adminControllers/getAllRoute');
+const addRouterPermission = require('../../controllers/adminControllers/addRouterPermission');
 
-const adminRoute = express.Router();
 
 // =================== Permission API ===================
 // ApiPath :-  /admin/add-permission
@@ -46,6 +48,7 @@ adminRoute.post('/add-role', verifyToken, onlyAdminAccess, roleAddValidator, add
 adminRoute.get('/get-role', verifyToken, onlyAdminAccess, getRole)
 
 // =================== AllRoute API ===================
-adminRoute.get('/all-routes', verifyToken, onlyAdminAccess, getAllallRoutes)
+// adminRoute.get('/all-routes', verifyToken, onlyAdminAccess, getAllallRoutes)
+adminRoute.post('/add-router-permission', verifyToken, onlyAdminAccess, addAllRouterPermissionValidator, addRouterPermission)
 
 module.exports = adminRoute
