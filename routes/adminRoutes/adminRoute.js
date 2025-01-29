@@ -21,9 +21,9 @@ const addRole = require('../../controllers/adminControllers/addRole');
 const getRole = require('../../controllers/adminControllers/getRole');
 
 // =================== All Routes Validator & Controllers ===================
-const { addAllRouterPermissionValidator } = require('../../helpers/addAllRouterPermissionValidator');
-const getAllallRoutes = require('../../controllers/adminControllers/getAllRoute');
+const { addAllRouterPermissionValidator, getRouterPermissionValidator } = require('../../helpers/RouterPermissionValidator');
 const addRouterPermission = require('../../controllers/adminControllers/addRouterPermission');
+const getRouterPermission = require('../../controllers/adminControllers/getRouterPermission');
 
 
 // =================== Permission API ===================
@@ -48,7 +48,7 @@ adminRoute.post('/add-role', verifyToken, onlyAdminAccess, roleAddValidator, add
 adminRoute.get('/get-role', verifyToken, onlyAdminAccess, getRole)
 
 // =================== AllRoute API ===================
-// adminRoute.get('/all-routes', verifyToken, onlyAdminAccess, getAllallRoutes)
 adminRoute.post('/add-router-permission', verifyToken, onlyAdminAccess, addAllRouterPermissionValidator, addRouterPermission)
+adminRoute.get('/get-router-permission', verifyToken, onlyAdminAccess, getRouterPermissionValidator , getRouterPermission)
 
 module.exports = adminRoute
