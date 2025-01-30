@@ -1,5 +1,5 @@
 const User = require('../../models/userModel');
-const GetUserPermission = require('../../helpers/helper')
+const { GetUserPermission } = require('../../helpers/helper')
 
 const getUserPermission = async (req, res) => {
     try {

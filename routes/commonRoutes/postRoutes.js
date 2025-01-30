@@ -10,16 +10,17 @@ const addPost = require('../../controllers/commonControllers/postControllers/add
 const getPost = require('../../controllers/commonControllers/postControllers/getPost');
 const deletePost = require('../../controllers/commonControllers/postControllers/deletePost');
 const updatePost = require('../../controllers/commonControllers/postControllers/updatePost');
+const checkPermission = require('../../middlewares/checkPermissionMiddleware');
 
 // =============== Post API ===============
 //ApiPath :-    /common/post/add-post
-postRoute.post('/add-post', verifyToken, postAddValidator, addPost)
+postRoute.post('/add-post', verifyToken, checkPermission, postAddValidator, addPost)
 
 //ApiPath :-    /common/post/get-post
-postRoute.get('/get-post', verifyToken, getPost)
+postRoute.get('/get-post', verifyToken, checkPermission, getPost)
 
 //ApiPath :-    /common/post/update-post
-postRoute.put('/update-post', verifyToken, postUpdateValidator, updatePost);
+postRoute.put('/update-post', verifyToken, checkPermission, postUpdateValidator, updatePost);
 
 //ApiPath :-    /common/post/delete-post
 postRoute.delete('/delete-post', verifyToken, postDeleteValidator, deletePost);
